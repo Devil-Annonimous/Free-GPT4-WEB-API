@@ -1,12 +1,12 @@
 ✨ Key Features:
 
-🔹 Fast & Lightweight — কম latency তে response দেয়।
+🔹 Fast & Lightweight
 
 🔹 Secure API Calls — API key-based authentication সাপোর্ট।
 
 🔹 Customizable — Prompt, temperature, এবং token limit কাস্টমাইজ করা যায়।
 
-🔹 Cross-Platform Compatible — যেকোনো ওয়েব বা সফটওয়্যার প্রোজেক্টে ইন্টিগ্রেট করা সম্ভব।
+🔹 Cross-Platform Compatible
 
 🛠️ Tech Stack:
 
