@@ -1,0 +1,292 @@
+<!-- flask settings page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon(Nicoladipa).png') }}" type="image/x-icon">
+    <title>Settings</title>
+</head>
+<body>
+    {% block content %}
+    <!-- Logo on the left and title on the right -->
+    <table class="w-50 m-7">
+        <tr>
+            <td class="m-7">
+                <img src="{{ url_for('static', filename='img/favicon(Nicoladipa).png') }}" width="96" class="inline-block" alt="Logo">
+            </td>
+            <td class="m-7">
+                <h1 class="title font-bold inter darkblue text-4xl">FreeGPT4</h1>
+                <h2 class="title blue
+                text-2xl">Server settings</h2>
+            </td>
+        </tr>
+    </table>
+
+
+    <form class="m-7 mt-10 inter" action="/save" method="post" enctype=multipart/form-data>
+        <table class="table-fixed w-full">
+            <tr>
+                <td class="py-1 fond-bold inter darkblue text-lg border-b border-slate-800" id="set_0"><b>File input support:</b></td>
+                <td class="py-1 fond-bold inter darkblue text-lg">
+                {% if data['file_input'] %}
+                    <input type="radio" id="off_rad_0" name="file_input" value="false" hidden oninput="turnOff('on_0', 'off_0', 'set_0')">
+                    <label for="off_rad_0" id="off_0" class="label_gray"><b>OFF</b></label>
+                    <p class="inline-block mx-1"> - </p>
+                    <input type="radio" id="on_rad_0" id="file_input" name="file_input" value="true" hidden oninput="turnOn('on_0', 'off_0', 'set_0')" checked>
+                    <label for="on_rad_0" id="on_0" class="label_green"><b>ON</b></label>
+                {% else %}
+                    <input type="radio" id="off_rad_0" name="file_input" value="false" hidden oninput="turnOff('on_0', 'off_0', 'set_0')" checked>
+                    <label for="off_rad_0" id="off_0" class="label_red"><b>OFF</b></label>
+                    <p class="inline-block mx-1"> - </p>
+                    <input type="radio" id="on_rad_0" id="file_input" name="file_input" value="true" hidden oninput="turnOn('on_0', 'off_0', 'set_0')">
+                    <label for="on_rad_0" id="on_0" class="label_gray"><b>ON</b></label>
+                {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td class="py-1 fond-bold inter darkblue text-lg border-b border-slate-800" id="set_1"><b>Show sources:</b></td>
+                <td class="py-1 fond-bold inter darkblue text-lg">
+                {% if data['remove_sources'] %}
+                <input type="radio" id="off_rad_1" name="remove_sources" value="true" hidden oninput="turnOff('on_1', 'off_1', 'set_1')" checked>
+                    <label for="off_rad_1" id="off_1" class="label_red"><b>OFF</b></label>
+                    <p class="inline-block mx-1"> - </p>
+                    <input type="radio" id="on_rad_1" name="remove_sources" value="false" hidden oninput="turnOn('on_1', 'off_1', 'set_1')">
+                    <label for="on_rad_1" id="on_1" class="label_gray"><b>ON</b></label>
+                {% else %}
+                    <input type="radio" id="off_rad_1" name="remove_sources" value="true" hidden oninput="turnOff('on_1', 'off_1', 'set_1')">
+                    <label for="off_rad_1" id="off_1" class="label_gray"><b>OFF</b></label>
+                    <p class="inline-block mx-1"> - </p>
+                    <input type="radio" id="on_rad_1" name="remove_sources" value="false" hidden oninput="turnOn('on_1', 'off_1', 'set_1')" checked>
+                    <label for="on_rad_1" id="on_1" class="label_green"><b>ON</b></label>
+                {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td class="py-1 fond-bold inter darkblue text-lg border-b border-slate-800" id="set_2"><b>Message history:</b></td>
+                <td class="py-1 fond-bold inter darkblue text-lg">
+                {% if data['message_history'] %}
+                <input type="radio" id="off_rad_2" name="message_history" value="false" hidden oninput="turnOff('on_2', 'off_2', 'set_2')">
+                    <label for="off_rad_2" id="off_2" class="label_gray"><b>OFF</b></label>
+                    <p class="inline-block mx-1"> - </p>
+                    <input type="radio" id="on_rad_2" name="message_history" value="true" hidden oninput="turnOn('on_2', 'off_2', 'set_2')" checked>
+                    <label for="on_rad_2" id="on_2" class="label_green"><b>ON</b></label>
+                {% else %}
+                    <input type="radio" id="off_rad_2" name="message_history" value="false" hidden oninput="turnOff('on_2', 'off_2', 'set_2')" checked>
+                    <label for="off_rad_2" id="off_2" class="label_red"><b>OFF</b></label>
+                    <p class="inline-block mx-1"> - </p>
+                    <input type="radio" id="on_rad_2" name="message_history" value="true" hidden oninput="turnOn('on_2', 'off_2', 'set_2')">
+                    <label for="on_rad_2" id="on_2" class="label_gray"><b>ON</b></label>
+                {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td class="py-1 fond-bold inter darkblue text-lg border-b border-slate-800" id="set_3">
+                    <b>Private Mode:</b>
+                    <br>
+                    <p id="warning_0" class="text-sm label_darkorange" hidden> <b>Warning:</b> your current token will be deleted </p>
+                    <input name="token" id="token" value="{{ data['token'] }}" hidden/>
+                    {% if data['token']|length > 0 %}
+                    <span id="warning_1" class="text-sm blue inline-block">
+                    {% else %}
+                    <span id="warning_1" class="text-sm blue inline-block hidden">
+                    {% endif %}
+                        <b>Your Token: </b> <i id="token_text" onclick="copyTextToClipboardFromName('token');">{{ data['token'] }}</i>
+                        <img id="copy_icon" src="{{ url_for('static', filename='img/copy(Gregor_Cresnar).png') }}" width="16" class="inline-block" alt="Copy" onclick="copy('token', this.id, 'Copied!');"/>
+                    </span>
+                </td>
+                <td class="py-1 fond-bold inter darkblue text-lg">
+                {% if data['token'] %}
+                <input type="radio" id="off_rad_3" name="private_mode" value="false" hidden oninput="turnOff('on_3', 'off_3', 'set_3'); hideWarning('warning_1'); showElement('warning_0');">
+                    <label for="off_rad_3" id="off_3" class="label_gray"><b>OFF</b></label>
+                    <p class="inline-block mx-1"> - </p>
+                    <input type="radio" id="on_rad_3" name="private_mode" value="true" hidden oninput="turnOn('on_3', 'off_3', 'set_3'); showWarning('warning_1'); hideElement('warning_0'); createToken('token_text')" checked>
+                    <label for="on_rad_3" id="on_3" class="label_green"><b>ON</b></label>
+                {% else %}
+                    <input type="radio" id="off_rad_3" name="private_mode" value="false" hidden oninput="turnOff('on_3', 'off_3', 'set_3'); hideWarning('warning_1'); showElement('warning_0');" checked>
+                    <label for="off_rad_3" id="off_3" class="label_red"><b>OFF</b></label>
+                    <p class="inline-block mx-1"> - </p>
+                    <input type="radio" id="on_rad_3" name="private_mode" value="true" hidden oninput="turnOn('on_3', 'off_3', 'set_3'); showWarning('warning_1'); hideElement('warning_0'); createToken('token_text')">
+                    <label for="on_rad_3" id="on_3" class="label_gray"><b>ON</b></label>
+                {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td class="py-1 fond-bold inter darkblue text-lg border-b border-slate-800" id="set_4">
+                    <b>Proxies:</b>
+                    <br>
+                    {% if data['proxies'] %}
+                    <div id="proxy_list" class="mt-3">
+                        {% else %}
+                    <div id="proxy_list" class="mt-3" hidden>
+                    {% endif %}
+                        <label id="add_proxy_button" class="button outline-none py-1 px-4 rounded-lg darkgreen_bg text-white text-md hover:opacity-95 w-24 mt-5" onclick="addProxy();">Add Proxy</label>
+                        <br>
+                        <p class="text-sm mb-2 mt-4"> <b> Your Proxies: </b></p>
+                        <div id="proxy_list_div">
+                            {% for proxy in proxies %}
+                                <!-- proxy form: protocol://user:password@ip:port -->
+                                <div class="flex justify-start mb-3" id="proxy_div_{{ loop.index }}">
+                                    <input type="text" id="proxy_{{ loop.index }}" name="proxy_{{ loop.index }}" class="input outline-none py-1 px-2 rounded-lg inter w-full" onchange="warnProxySyntax(this.value, this.id);" placeholder="protocol://user:password@host:port" value="{{ proxy['protocol'] }}://{{ proxy['username'] }}:{{ proxy['password'] }}@{{ proxy['ip'] }}:{{ proxy['port'] }}">
+                                    <img id="delete_icon_{{ loop.index }}" src="{{ url_for('static', filename='img/delete(Anggara).png') }}" width="32" class="inline-block mx-2 p-1 hover:brightness-125" alt="Delete" onclick="deleteElement('proxy_div_{{ loop.index }}');"/>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </td>
+                <td class="py-1 fond-bold inter darkblue text-lg align-top">
+                {% if data['proxies'] %}
+                    <input type="radio" id="off_rad_4" name="proxies" value="false" hidden oninput="turnOff('on_4', 'off_4', 'set_4'); hideElement('proxy_list');">
+                    <label for="off_rad_4" id="off_4" class="label_gray"><b>OFF</b></label>
+                    <p class="inline-block mx-1"> - </p>
+                    <input type="radio" id="on_rad_4" name="proxies" value="true" hidden oninput="turnOn('on_4', 'off_4', 'set_4'); showElement('proxy_list');" checked>
+                    <label for="on_rad_4" id="on_4" class="label_green"><b>ON</b></label>
+                {% else %}
+                    <input type="radio" id="off_rad_4" name="proxies" value="false" hidden oninput="turnOff('on_4', 'off_4', 'set_4'); hideElement('proxy_list');" checked>
+                    <label for="off_rad_4" id="off_4" class="label_red"><b>OFF</b></label>
+                    <p class="inline-block mx-1"> - </p>
+                    <input type="radio" id="on_rad_4" name="proxies" value="true" hidden oninput="turnOn('on_4', 'off_4', 'set_4'); showElement('proxy_list');">
+                    <label for="on_rad_4" id="on_4" class="label_gray"><b>ON</b></label>
+                {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td class="py-1 fond-bold inter darkblue text-lg border-b border-slate-800" id="set_5">
+                    <b>Fast API:</b>
+                    <br>
+                    <p id="warning_2" class="text-sm label_darkorange" hidden> <b>Warning:</b> the Fast API shutdown will take effect only after you've manually restarted the server </p>
+                </td>
+                <td class="py-1 fond-bold inter darkblue text-lg">
+                {% if data['fast_api'] %}
+                <input type="radio" id="off_rad_5" name="fast_api" value="false" hidden oninput="turnOff('on_5', 'off_5', 'set_5'); showElement('warning_2');">
+                    <label for="off_rad_5" id="off_5" class="label_gray"><b>OFF</b></label>
+                    <p class="inline-block mx-1"> - </p>
+                    <input type="radio" id="on_rad_5" name="fast_api" value="true" hidden oninput="turnOn('on_5', 'off_5', 'set_5'); hideElement('warning_2');" checked>
+                    <label for="on_rad_5" id="on_5" class="label_green"><b>ON</b></label>
+                {% else %}
+                    <input type="radio" id="off_rad_5" name="fast_api" value="false" hidden oninput="turnOff('on_5', 'off_5', 'set_5'); showElement('warning_2');" checked>
+                    <label for="off_rad_5" id="off_5" class="label_red"><b>OFF</b></label>
+                    <p class="inline-block mx-1"> - </p>
+                    <input type="radio" id="on_rad_5" name="fast_api" value="true" hidden oninput="turnOn('on_5', 'off_5', 'set_5'); hideElement('warning_2');">
+                    <label for="on_rad_5" id="on_5" class="label_gray"><b>ON</b></label>
+                {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td class="py-1 fond-bold inter darkblue text-lg border-b border-slate-800">
+                    <b>Server port:</b>
+                    <br>
+                    <p id="warning_3" class="text-sm label_darkorange" hidden> <b>Warning:</b> the port change will take effect only after you've manually restarted the server </p>
+                </td>
+                <td class="py-1 fond-bold inter darkblue text-lg">
+                    <b>
+                        <input type="number" id="port" name="port" class="input outline-none py-1 px-2 rounded-lg inter w-24" placeholder="Port" value="{{ data['port'] }}" onchange="showElement('warning_3')">
+                    </b>
+                </td>
+            </tr>
+            <tr>
+                <td class="py-1 fond-bold inter darkblue text-lg border-b border-slate-800"><b>A.I. Provider:</b></td>
+                <td class="py-1 fond-bold inter darkblue text-lg">
+                    <b>
+                        <select name="provider" id="provider" class="input outline-none py-1 px-2 rounded-lg inter w-24">
+                            <option value="{{ data['provider'] }}"> {{ data['provider'] }} - Default </option>
+                            {% for key, value in providers.items() %}
+                                <option value="{{ key }}"> {{ key }} </option>
+                            {% endfor %}
+                        </select>
+                    </b>
+                </td>
+            </tr>
+            <tr>
+                <td class="py-1 fond-bold inter darkblue text-lg border-b border-slate-800"><b>A.I. Model:</b></td>
+                <td class="py-1 fond-bold inter darkblue text-lg">
+                    <b>
+                        <select name="model" id="model" class="input outline-none py-1 px-2 rounded-lg inter w-24">
+                            <option value="{{ data['model'] }}"> {{ data['model'] }} </option>
+                            {% if data['provider'] == "Auto" %}
+                                {% for model in generic_models %}
+                                    <option value="{{ model }}"> {{ model }} </option>
+                                {% endfor %}
+                            {% else %}
+                                {% for model in providers[data['provider']].models %}
+                                    <option value="{{ model }}"> {{ model }} </option>
+                                {% endfor %}
+                            {% endif %}
+                        </select>
+                    </b>
+                </td>
+            </tr>
+            <tr>
+                <td class="py-1 fond-bold inter darkblue text-lg border-b border-slate-800"><b>Cookies:</b></td>
+                <td class="py-1 fond-bold inter darkblue text-lg">
+                    <b>
+                        <input type="file" id="cookie_file" name="cookie_file" class="input outline-none py-1 px-2 rounded-lg inter w-24 fileholder" placeholder="Cookies" value="{{ data['cookie_file'] }}" accept=".json" oninput="changeButton('cookies_button')" hidden>
+                        {% if data['cookie_file']|length == 0 %}
+                            <label for="cookie_file" id="cookies_button" class="button outline-none py-1 px-4 rounded-lg darkblue_bg inter text-white text-md mt-5 hover:opacity-95 w-24">Upload</label>
+                        {% else %}
+                            <label for="cookie_file" id="change_cookies_button" class="button outline-none py-1 px-4 rounded-lg darkgreen_bg inter text-white text-md mt-5 hover:opacity-95 w-24">Change</label>
+                        {% endif %}
+                    </b>
+                </td>
+            </tr>
+            <tr>
+                <td class="py-1 fond-bold inter darkblue text-lg border-b border-slate-800"><b>Input keyword:</b></td>
+                <td class="py-1 fond-bold inter darkblue text-lg">
+                    <b>
+                        <input type="text" id="keyword" name="keyword" class="input outline-none py-1 px-2 rounded-lg inter w-24" placeholder="i.e. input" value="{{ data['keyword'] }}" suggested="text"></input>
+                    </b>
+                </td>
+            </tr>
+            <tr>
+                <td class="py-1 fond-bold inter darkblue text-lg border-b border-slate-800 pb-3">
+                    <b>Password:</b>
+                    <div id="password_update" class="mt-4" hidden>
+                        <p class="text-sm"> <b> Set Password </b></p>
+                        <input type="password" id="new_password" name="new_password" class="input outline-none py-1 px-2 rounded-lg inter" placeholder="Your new Password" onchange="enableSaveButton();" autocomplete="new-password"></input>
+                        <p class="text-sm mt-4"> <b> Confirm Password </b></p>
+                        <input type="password" id="confirm_password" name="confirm_password" class="input outline-none py-1 px-2 rounded-lg inter" placeholder="New Password Again" onchange="enableSaveButton();" autocomplete="new-password"></input>
+                        <p id="error_password" class="text-sm label_red mt-1" hidden> <b> Error: </b> Passwords do not match </p>
+                        <p id="success_password" class="text-sm label_green mt-1" hidden> 
+                            <b> Success: </b> Passwords match. <br> 
+                            <i> When entering the old password below to confirm, the password will be updated </i>
+                        </p>
+                    </div>
+                </td>
+                <td class="py-1 fond-bold inter darkblue text-lg align-top">
+                    <b>
+                        <label id="open_password_update" class="button outline-none py-1 px-4 rounded-lg darkgreen_bg inter text-white text-md mt-5 hover:opacity-95 w-24" onclick="openPasswordUpdate(); enableSaveButton();">Update</label>
+                        <label id="cancel_password_update" class="button outline-none py-1 px-4 rounded-lg darkred_bg inter text-white text-md mt-5 hover:opacity-95 w-24" onclick="cancelPasswordUpdate(); enableSaveButton();" hidden>Cancel</label>
+                    </b>
+                </td>
+            </tr>
+            <tr>
+                <td class="py-1 fond-bold inter darkblue text-lg border-b border-slate-800">
+                    <b>System Prompt:</b>
+                    <textarea type="text" id="system_prompt" name="system_prompt" class="input outline-none py-1 px-2 my-2 rounded-lg inter w-full font-normal" placeholder="i.e. You're a virtual flight assistant, from now on follow your role for every answer.">{{ data['system_prompt'] }}</textarea>
+                </td>
+            </tr>
+        </table>
+        <!-- enter password to confirm -->
+        <div class="flex justify-start mt-12">
+            <input type="password" id="password" name="password" class="input outline-none py-3 px-4 rounded-lg inter w-60" placeholder="Enter password to confirm" onchange="enableSaveButton();"  autocomplete="current-password">
+        </div>
+        <!-- save and apply button -->
+        <div class="flex justify-start">
+            <button type="submit" id="save" hidden>Save and apply</button>
+            <!-- dummy label gray -->
+            <label for="save" id="save_label" class="button outline-none py-3 px-4 pl-5 rounded-lg darkblue_bg inter text-white text-md mt-3 hover:opacity-95 w-40" hidden>Save and apply</label>
+            <label id="save_label_dummy" class="button outline-none py-3 px-4 pl-5 rounded-lg bg-slate-300 inter text-white text-md mt-3 w-40">Save and apply</label>
+        </div>
+    </form>
+
+    {% endblock %}
+</body>
+<!-- script import -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{{ url_for('static', filename='js/script.js') }}" type="text/javascript"></script>
+</html>
+<!-- Path: src/templates/settings.html -->
